@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Academia de Jiu-Jitsu">
+  <rect width="512" height="512" rx="112" fill="#000000"/>
+  <path d="M128 164h256v54H128z" fill="#ffffff"/>
+  <path d="M128 229h256v54H128z" fill="#d4af37"/>
+  <path d="M128 294h256v54H128z" fill="#ffffff"/>
+  <path d="M360 148h42v216h-42z" fill="#111111" stroke="#d4af37" stroke-width="10"/>
+</svg>
