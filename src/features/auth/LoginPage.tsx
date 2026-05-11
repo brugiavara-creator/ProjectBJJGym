@@ -24,6 +24,8 @@ export function LoginPage() {
     }
   }, [navigate, profile, session, status])
 
+  const isAuthenticatedButNoMembership = status === 'ready' && session && !profile
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -54,6 +56,16 @@ export function LoginPage() {
             title="Supabase nao configurado"
             description="Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para habilitar login real. Sem essas variaveis, o app abre em modo local de demonstracao."
             action={<Link className="btn" to="/admin">Abrir demo local</Link>}
+          />
+        ) : isAuthenticatedButNoMembership ? (
+          <EmptyState
+            title="Conta sem vinculo de academia"
+            description="Seu login foi autenticado, mas voce ainda nao esta vinculado a uma academia como aluno, professor ou administrador. Entre em contato com o administrador da academia para concluir o cadastro."
+            action={
+              <Button onClick={() => { void supabase?.auth.signOut() }} variant="secondary">
+                Sair da conta
+              </Button>
+            }
           />
         ) : (
           <form className="form-card" onSubmit={handleSubmit}>

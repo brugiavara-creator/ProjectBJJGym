@@ -19,7 +19,7 @@ import { StudentCheckinPage } from '../../features/checkins/StudentCheckinPage'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/admin" replace />
+    element: <Navigate to="/login" replace />
   },
   {
     path: '/login',

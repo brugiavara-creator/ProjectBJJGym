@@ -67,7 +67,7 @@ set
 --
 -- NOTE: Auth users MUST be created via the Supabase Auth API
 -- (not direct SQL) so passwords are hashed correctly.
--- Run these after seeding the database:
+-- Run these AFTER seeding the database:
 --
 --   curl -X POST http://localhost:54321/auth/v1/signup \
 --     -H "apikey: <anon-key>" -H "Content-Type: application/json" \
@@ -77,5 +77,16 @@ set
 --     -H "apikey: <anon-key>" -H "Content-Type: application/json" \
 --     -d '{"email": "thupyk@gmail.com", "password": "Pilot@2026!"}'
 --
--- Then link profiles/memberships with the returned user IDs.
+-- Then run pilot-bootstrap.example.sql with the returned user IDs.
+--
+-- CRITICAL: For login to work, EVERY user needs ALL four records:
+--   1. auth.users          -> created via API (curl above)
+--   2. public.profiles     -> display name
+--   3. public.academy_members (role = 'owner' | 'admin' | 'coach' | 'student', status = 'active')
+--                          -> REQUIRED for login; AuthProvider uses this as the access-control source of truth
+--   4. public.students (profile_id = auth_user_id)
+--                          -> student data (belt, grau, mensalidade due date)
+--
+-- If a user can authenticate but sees "Conta sem vinculo de academia",
+-- the academy_members record is missing or has status != 'active'.
 -- ============================================================
